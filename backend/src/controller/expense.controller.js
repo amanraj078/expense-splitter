@@ -56,6 +56,9 @@ const getSummary = async (req, res) => {
         expenses.forEach((expense) => {
             const share = expense.amount / expense.participants.length;
 
+            // const expenses = ExpenseModel.find({ user: req.user._id });
+            balances[expense.paidBy] += expense.amount - share;
+
             expense.participants.forEach((person) => {
                 if (!balances[person]) balances[person] = 0;
                 if (person === expense.paidBy) {
